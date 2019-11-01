@@ -1,0 +1,32 @@
+global:
+  scrape_interval: 15s
+  scrape_timeout: 10s
+  evaluation_interval: 15s
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets: []
+    scheme: http
+    timeout: 10s
+scrape_configs:
+- job_name: prometheus
+  scrape_interval: 15s
+  scrape_timeout: 10s
+  metrics_path: /metrics
+  scheme: http
+  static_configs:
+  - targets:
+    - localhost:9090
+- job_name: cadvisor
+  scrape_interval: 5s
+  scheme: http
+  static_configs:
+  - targets:
+    - endpoint-do-cadvisor:9101
+- job_name: nodes_europ_virg
+  ec2_sd_configs:
+    - region: us-east-1
+      access_key: access_com_acesso_de_leitura_ec2
+      secret_key: secret_com_acesso_de_leitura_ec2
+      port: 9100
+      refresh_interval: 1m
